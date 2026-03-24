@@ -1,5 +1,5 @@
 /*
-Package: vitk - Vietnamese tokenizer
+Package: go-vitk - Vietnamese tokenizer
 Author: @versenilvis (Github)
 
 vitk cung cấp khả năng xử lý văn bản tiếng Việt được tối ưu hóa cho công cụ tìm kiếm
