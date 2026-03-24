@@ -5706,6 +5706,7 @@ ba-ren
 baren
 ba-ri
 bà rịa
+bà rịa vũng tàu
 bà rịa-vũng tàu
 ba ri e
 ba-ri-e
@@ -7195,6 +7196,7 @@ bình dập lửa
 bình dị
 binh dịch
 bình diện
+bình định
 bình dương
 binh gia
 bình gia
@@ -19220,6 +19222,7 @@ dải khứu
 dại làm cột con
 dài lâu
 dài lê thê
+đài loan
 dài lời
 dài long
 dài lưng
@@ -19271,6 +19274,8 @@ dại trai
 dải yếm
 da khô
 dạ khúc
+đắk lắk
+đắk nông
 da l
 dã lã
 dã lả
@@ -19382,6 +19387,7 @@ dãn
 dạn
 dặn
 dận
+đà nẵng
 dân áo ngắn
 dàn bài
 dẫn bảo
@@ -20436,6 +20442,7 @@ diễn
 diện
 diễn âm
 diễn biến
+điện biên
 diễn biến hoà bình
 diễn binh
 diễn ca
@@ -20924,6 +20931,7 @@ dong lá
 dõng lưng
 dong măk
 dòng máu
+đồng nai
 dong nhan
 dỗ ngon dỗ ngọt
 dở ngọng dở nghịu
@@ -20932,6 +20940,7 @@ dong ri
 dong riềng
 dòng tên
 dòng thăm
+đồng tháp
 dong thứ
 dòng thuần
 dông tố
@@ -23433,6 +23442,7 @@ già không trót
 già khú
 già khụ
 giả lả
+gia lai
 già lam
 già làng
 giá lạnh
@@ -25214,6 +25224,7 @@ hạ du
 ha-fi-ni
 hạ giá
 hả giận
+hà giang
 hạ giới
 hạ giọng
  ha h
@@ -25495,6 +25506,7 @@ hẳn
 hấn
 hạn
 hận
+hà nam
 hạ nang
 hạn bà chằng
 hạn bông tranh
@@ -25759,6 +25771,7 @@ há nỡ
 hà nội
 hàn ôn
 hàn quang
+hàn quốc
 hàn rèn
 hàn sĩ
 hán sương
@@ -25960,6 +25973,7 @@ hạt huyền
 hà tiện
 hạ tiện
 hà tiện vắt cổ chày ra nước
+hà tĩnh
 hạ tình
 hạt kết
 hát khách
@@ -26037,6 +26051,7 @@ hầu dễ
 hậu diện
 hậu duệ
 hậu giả hậu
+hậu giang
 hậu gom
 hau h
 hầu hạ
@@ -26816,6 +26831,7 @@ hoạ báo
 hoa bát
 hoa bia
 hoà bình
+hòa bình
 hoà bình chủ nghĩa
 hoà bình võ trang
 hoa bông bèo
@@ -28390,6 +28406,7 @@ hùng vĩ
 hưng vong
 hưng vượng
 hứng ý
+hưng yên
 hun h
 hùn hạp
 hủ nho
@@ -30881,6 +30898,7 @@ khảnh ăn
 khánh chúc
 khánh gia
 khánh hạ
+khánh hòa
 khan hi
 khan hiếm
 khanh kh
@@ -32580,6 +32598,7 @@ kiêng gió
 kiêng húy
 kiến giải
 kiện gian bàn ngay
+kiên giang
 kiến giảng
 kiến giả nhất phận
 kiến gió
@@ -33154,6 +33173,7 @@ kỉ yếu
 km
 kmun
 kốc
+kon tum
 koruna
 kpă
 kpăng-công
@@ -33381,6 +33401,7 @@ lai c
 lại cái
 lai căng
 lai cảo
+lai châu
 lái chịu
 lai d
 lai dai
@@ -33555,6 +33576,7 @@ làm dấu thánh
 làm dâu trăm họ
 làm dịu
 làm dơi làm chuột
+lâm đồng
 làm dữ
 lạm dụng
 làm duyên
@@ -33901,6 +33923,7 @@ lạng quạng
 lãng quên
 lang s
 lang sói
+lạng sơn
  langt
 lang tạ
 lạng ta
@@ -34117,6 +34140,7 @@ lào bốc
 lão bộc
 lao c
 lao cải
+lào cai
 lao chaot
 lao công
 lao d
@@ -35748,6 +35772,7 @@ lỏng
 lọng
 lộng
 lo ngại
+long an
 long án
 lớn gan
 lộn gan
@@ -40317,6 +40342,7 @@ nằm cùng chiếu
 năm cùng tháng tận
 nấm da
 nằm dài
+nam định
 năm dương lịch
 nằm gai nếm mật
 nam gi
@@ -41664,6 +41690,7 @@ nghê
 nghề
 nghể
 nghệ
+nghệ an
 nghe bệnh
 nghè bô
 nghề cạo giấy
@@ -44205,6 +44232,7 @@ nhà tầng
 nhã tập
 nhà tập thể
 nhà tây
+nhật bản
 nhất bản vạn lợi
 nhật báo
 nhất bên trọng nhất bên khinh
@@ -47148,6 +47176,7 @@ nước dãi
 nước dân tộc chủ nghĩa
 nước dẫy sóng dồi
 nước dừa
+nước đức
 nước dùng
 nước dương
 nước ép
@@ -51773,6 +51802,7 @@ phụ thân
 phu thê
 phù thế
 phù thịnh
+phú thọ
 phụ thu
 phủ thừa
 phù thu lạm bổ
@@ -51816,6 +51846,7 @@ phu xướng phụ tuỳ
 phu xướng phụ tùy
 p huy
 phuy
+phú yên
 pi
 piano
 pi a nô
@@ -59697,6 +59728,7 @@ thái hưng
 thái không
 thái lai
 thài lài
+thái lan
 thải loại
 thái long
 thái miếu
@@ -62561,6 +62593,7 @@ thua tháy
 thừa thế
 thua thi
 thừa thiên
+thừa thiên huế
 thừa thiên-huế
 thua thiệt
 thưa thốt
@@ -65772,7 +65805,9 @@ t ph
 t phait
 t pha ph
 t phat
+tp hcm
 t phi
+tp hồ chí minh
 t phot
 t phut
 t qu
@@ -67759,6 +67794,7 @@ trúng quả
 trung quả bì
 trung quân
 trùng quán
+trung quốc
 trứng quốc
 trùng rận
 trùng roi
