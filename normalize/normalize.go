@@ -1,10 +1,9 @@
+// https://github.com/AlasdairF/Tokenize
 package normalize
 
 import (
-	"maps"
 	"strings"
 	"unicode"
-	"unicode/utf8"
 
 	"golang.org/x/text/unicode/norm"
 )
@@ -57,55 +56,95 @@ func New(opts ...Option) *Normalizer {
 		expandAbbr:    true,
 		stripAccents:  false,
 	}
-	maps.Copy(n.abbreviations, defaultAbbreviations)
+
+	for k, v := range defaultAbbreviations {
+		n.abbreviations[k] = v
+	}
 	for _, opt := range opts {
 		opt(n)
 	}
 	return n
 }
 
+
 func (n *Normalizer) Normalize(text string) string {
 	if text == "" {
 		return ""
-	}
-
-	if isASCII(text) {
-		if n.lowercase {
-			text = strings.ToLower(text)
-		}
-		if n.removePunct {
-			text = n.cleanPunctuation(text)
-		}
-		if n.expandAbbr {
-			text = n.expandAbbreviations(text)
-		}
-		if n.stripAccents {
-			text = stripAccents(text)
-		}
-		return strings.TrimSpace(collapseWhitespace(text))
 	}
 
 	if n.unicodeNFC && !norm.NFC.IsNormalString(text) {
 		text = norm.NFC.String(text)
 	}
 
-	if n.lowercase {
-		text = strings.ToLower(text)
+	var b strings.Builder
+	b.Grow(len(text))
+
+	lastWasSpace := true
+	
+	for _, r := range text {
+		if n.stripAccents {
+			r = getBaseChar(r)
+		} else if n.lowercase {
+			r = unicode.ToLower(r)
+		}
+
+		if unicode.IsLetter(r) || unicode.IsDigit(r) {
+			b.WriteRune(r)
+			lastWasSpace = false
+		} else {
+			if !lastWasSpace {
+				b.WriteRune(' ')
+				lastWasSpace = true
+			}
+		}
 	}
 
-	if n.removePunct {
-		text = n.cleanPunctuation(text)
-	}
+	res := strings.TrimSpace(b.String())
 
 	if n.expandAbbr {
-		text = n.expandAbbreviations(text)
+		res = n.expandAbbreviations(res)
 	}
 
-	if n.stripAccents {
-		text = stripAccents(text)
-	}
+	return res
+}
 
-	return strings.TrimSpace(collapseWhitespace(text))
+func getBaseChar(r rune) rune {
+	r = unicode.ToLower(r)
+	switch r {
+	case 'á', 'à', 'ả', 'ã', 'ạ', 'ă', 'ắ', 'ằ', 'ẳ', 'ẵ', 'ặ', 'â', 'ấ', 'ầ', 'ẩ', 'ẫ', 'ậ':
+		return 'a'
+	case 'đ':
+		return 'd'
+	case 'é', 'è', 'ẻ', 'ẽ', 'ẹ', 'ê', 'ế', 'ề', 'ể', 'ễ', 'ệ':
+		return 'e'
+	case 'í', 'ì', 'ỉ', 'ĩ', 'ị':
+		return 'i'
+	case 'ó', 'ò', 'ỏ', 'õ', 'ọ', 'ô', 'ố', 'ồ', 'ổ', 'ỗ', 'ộ', 'ơ', 'ớ', 'ờ', 'ở', 'ỡ', 'ợ':
+		return 'o'
+	case 'ú', 'ù', 'ủ', 'ũ', 'ụ', 'ư', 'ứ', 'ừ', 'ử', 'ữ', 'ự':
+		return 'u'
+	case 'ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ':
+		return 'y'
+	}
+	return r
+}
+
+func (n *Normalizer) expandAbbreviations(text string) string {
+	if text == "" {
+		return ""
+	}
+	words := strings.Fields(text)
+	changed := false
+	for i, w := range words {
+		if expanded, ok := n.abbreviations[w]; ok {
+			words[i] = expanded
+			changed = true
+		}
+	}
+	if !changed {
+		return text
+	}
+	return strings.Join(words, " ")
 }
 
 func NormalizeUnicode(s string) string {
@@ -116,94 +155,10 @@ func NormalizeUnicode(s string) string {
 }
 
 func StripAccents(s string) string {
-	if isASCII(s) {
-		return strings.ToLower(s)
-	}
-	s = NormalizeUnicode(s)
-	return stripAccents(s)
-}
-
-func stripAccents(s string) string {
-	buf := make([]byte, 0, len(s))
+	var b strings.Builder
+	b.Grow(len(s))
 	for _, r := range s {
-		r = unicode.ToLower(r)
-		switch r {
-		case 'á', 'à', 'ả', 'ã', 'ạ', 'ă', 'ắ', 'ằ', 'ẳ', 'ẵ', 'ặ', 'â', 'ấ', 'ầ', 'ẩ', 'ẫ', 'ậ':
-			buf = append(buf, 'a')
-		case 'đ':
-			buf = append(buf, 'd')
-		case 'é', 'è', 'ẻ', 'ẽ', 'ẹ', 'ê', 'ế', 'ề', 'ể', 'ễ', 'ệ':
-			buf = append(buf, 'e')
-		case 'í', 'ì', 'ỉ', 'ĩ', 'ị':
-			buf = append(buf, 'i')
-		case 'ó', 'ò', 'ỏ', 'õ', 'ọ', 'ô', 'ố', 'ồ', 'ổ', 'ỗ', 'ộ', 'ơ', 'ớ', 'ờ', 'ở', 'ỡ', 'ợ':
-			buf = append(buf, 'o')
-		case 'ú', 'ù', 'ủ', 'ũ', 'ụ', 'ư', 'ứ', 'ừ', 'ử', 'ữ', 'ự':
-			buf = append(buf, 'u')
-		case 'ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ':
-			buf = append(buf, 'y')
-		default:
-			if r < 128 {
-				buf = append(buf, byte(r))
-			} else if unicode.IsLetter(r) || unicode.IsDigit(r) {
-				var tmp [4]byte
-				n := utf8.EncodeRune(tmp[:], r)
-				buf = append(buf, tmp[:n]...)
-			}
-		}
-	}
-	return string(buf)
-}
-
-func isASCII(s string) bool {
-	for i := 0; i < len(s); i++ {
-		if s[i] > 127 {
-			return false
-		}
-	}
-	return true
-}
-
-func (n *Normalizer) expandAbbreviations(text string) string {
-	words := strings.Fields(text)
-	for i, w := range words {
-		cleaned := strings.TrimFunc(w, func(r rune) bool {
-			return unicode.IsPunct(r) || unicode.IsSymbol(r)
-		})
-		if expanded, ok := n.abbreviations[strings.ToLower(cleaned)]; ok {
-			words[i] = expanded
-		}
-	}
-	return strings.Join(words, " ")
-}
-
-func (n *Normalizer) cleanPunctuation(text string) string {
-	var b strings.Builder
-	b.Grow(len(text))
-	for _, r := range text {
-		if unicode.IsLetter(r) || unicode.IsDigit(r) || unicode.IsSpace(r) {
-			b.WriteRune(r)
-		} else {
-			b.WriteRune(' ')
-		}
-	}
-	return b.String()
-}
-
-func collapseWhitespace(text string) string {
-	var b strings.Builder
-	b.Grow(len(text))
-	prevSpace := false
-	for _, r := range text {
-		if unicode.IsSpace(r) {
-			if !prevSpace {
-				b.WriteRune(' ')
-			}
-			prevSpace = true
-		} else {
-			b.WriteRune(r)
-			prevSpace = false
-		}
+		b.WriteRune(getBaseChar(r))
 	}
 	return b.String()
 }
