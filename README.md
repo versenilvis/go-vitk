@@ -3,6 +3,9 @@
 
 **go-vitk** là thư viện xử lý tiếng Việt được tối ưu cho bài toán tìm kiếm (Meilisearch, Elasticsearch, file finder, ...), sử dụng cấu trúc Immutable Array-based Trie và Single-pass Normalization
 
+> [!WARNING]
+> **Đây không phải thư viện tokenizer cho LLM/AI**
+
 ## Tính năng nổi bật
 - **Siêu nhanh:** Tốc độ tách từ cấp độ Nano giây (~8.6 µs cho chuỗi dài)
 - **Tiết kiệm RAM:** Sử dụng cấu trúc mảng flat thay vì Map, giảm thiểu GC pressure
