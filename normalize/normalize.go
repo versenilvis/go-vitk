@@ -2,6 +2,7 @@
 package normalize
 
 import (
+	"maps"
 	"strings"
 	"unicode"
 
@@ -57,9 +58,7 @@ func New(opts ...Option) *Normalizer {
 		stripAccents:  false,
 	}
 
-	for k, v := range defaultAbbreviations {
-		n.abbreviations[k] = v
-	}
+	maps.Copy(n.abbreviations, defaultAbbreviations)
 	for _, opt := range opts {
 		opt(n)
 	}
@@ -103,6 +102,9 @@ func (n *Normalizer) Normalize(text string) string {
 
 	if n.expandAbbr {
 		res = n.expandAbbreviations(res)
+		if n.stripAccents {
+			res = StripAccents(res)
+		}
 	}
 
 	return res
