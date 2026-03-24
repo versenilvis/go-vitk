@@ -15,7 +15,15 @@ type Filter struct {
 	re    *regexp.Regexp
 }
 
-func New() (*Filter, error) {
+type Option func(*Filter)
+
+func WithExtraWords(words []string) Option {
+	return func(f *Filter) {
+		f.Add(words...)
+	}
+}
+
+func New(opts ...Option) (*Filter, error) {
 	f := &Filter{words: make(map[string]struct{})}
 
 	file, err := data.StopwordsFS.Open("stopwords.txt")
@@ -26,6 +34,10 @@ func New() (*Filter, error) {
 
 	if err := f.loadFromReader(file); err != nil {
 		return nil, fmt.Errorf("load embedded stopwords: %w", err)
+	}
+
+	for _, opt := range opts {
+		opt(f)
 	}
 
 	f.rebuildRegexp()

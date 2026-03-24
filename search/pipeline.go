@@ -14,7 +14,15 @@ type Pipeline struct {
 	stopwords  *stopwords.Filter
 }
 
-func NewPipeline() (*Pipeline, error) {
+type Option func(*Pipeline)
+
+func WithExtraStopwords(words []string) Option {
+	return func(p *Pipeline) {
+		p.stopwords.Add(words...)
+	}
+}
+
+func NewPipeline(opts ...Option) (*Pipeline, error) {
 	tok, err := tokenizer.New()
 	if err != nil {
 		return nil, err
@@ -25,11 +33,17 @@ func NewPipeline() (*Pipeline, error) {
 		return nil, err
 	}
 
-	return &Pipeline{
+	p := &Pipeline{
 		tokenizer:  tok,
 		normalizer: normalize.New(),
 		stopwords:  sw,
-	}, nil
+	}
+
+	for _, opt := range opts {
+		opt(p)
+	}
+
+	return p, nil
 }
 
 func (p *Pipeline) ProcessDocument(text string) string {

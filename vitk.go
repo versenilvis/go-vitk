@@ -122,6 +122,6 @@ func NewStopwords() (*stopwords.Filter, error) {
 	return stopwords.New()
 }
 
-func NewPipeline() (*search.Pipeline, error) {
-	return search.NewPipeline()
+func NewPipeline(opts ...search.Option) (*search.Pipeline, error) {
+	return search.NewPipeline(opts...)
 }

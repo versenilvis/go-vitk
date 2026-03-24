@@ -22,6 +22,16 @@ func WithDictionary(dict *Dictionary) Option {
 	}
 }
 
+func WithExtraWords(words []string) Option {
+	return func(t *Tokenizer) {
+		if t.dict == nil {
+			dict, _ := NewDictionary()
+			t.dict = dict
+		}
+		t.dict.AddWords(words...)
+	}
+}
+
 func WithoutNormalize() Option {
 	return func(t *Tokenizer) {
 		t.normalize = false
